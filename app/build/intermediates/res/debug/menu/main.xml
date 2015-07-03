@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.SFEDU.schedule_1.MainActivity" >
+    <item android:id="@+id/menu_add_item" android:title="@string/menu_add_record"></item>
+
+</menu>
+<!-- From: file:/C:/Users/Alex/AndroidStudioProjects/Schedule/app/src/main/res/menu/main.xml -->

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout2"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp" >
+
+        <TextView
+            android:id="@+id/recordPosition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1."
+            android:textSize="@dimen/list_item_rec_no_text_size" />
+
+        <TextView
+            android:id="@+id/recordTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="8:30 - 9:50"
+            android:textSize="@dimen/list_item_time_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp" >
+
+        <TextView
+            android:id="@+id/subjectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Математика"
+            android:textSize="@dimen/list_item_subject_name_text_size" />
+
+        <TextView
+            android:id="@+id/teacherName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@dimen/list_item_teacher_name_text_size"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="Иванов Евгений Александрович"
+            android:textSize="@dimen/list_item_teacher_name_text_size" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lessonType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="Лек"
+        android:textSize="@dimen/list_item_lesson_type_text_size" />
+
+    <TextView
+        android:id="@+id/roomDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="Г-309"
+        android:textSize="@dimen/list_item_room_desc_text_size" />
+
+</LinearLayout>
+<!-- From: file:/C:/Users/Alex/AndroidStudioProjects/Schedule/app/src/main/res/layout/schedule_record_list_item.xml -->

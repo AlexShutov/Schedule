@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:id="@+id/group1">
+        <item android:id="@+id/popup_add_new_record" android:title="@string/popup_add_new_record"></item>
+        <item android:id="@+id/popup_remove_record" android:title="@string/popup_remove_record"></item>
+    </group>
+    
+
+</menu>
+<!-- From: file:/C:/Users/Alex/AndroidStudioProjects/Schedule/app/src/main/res/menu/popup_menu.xml -->

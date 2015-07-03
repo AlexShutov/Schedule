@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/IScheduleKeeperReloader.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/KeeperFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/MemoryCardFileManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/OEWeekFileSaver.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/OEWeekSaverBase.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/Schedule.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/Schedule4Week.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/Schedule4WeekSvrRldr.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/ScheduleAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/ScheduleDayFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/ScheduleEditRecordFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/ScheduleKeepReloadException.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/TestActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/SFEDU/schedule_1/XMLScheduleSaverReloader.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

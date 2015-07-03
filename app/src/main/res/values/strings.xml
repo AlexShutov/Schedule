@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Schedule</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="some_string">jawoidjawoijd</string>
+    <string-array name="weekDaysNames">
+        <item >Понедельник</item>
+        <item >Вторник</item>
+        <item >Среда</item>
+        <item >Четверг</item>
+        <item >Пятница</item>
+        <item >Суббота</item>
+        <item >Воскресенье</item>
+    </string-array>
+    <string-array name="oddEvenWeek">
+        <item >Чёт</item>
+        <item >Нечёт</item>
+    </string-array>
+    <string name="SP_default_sp_id">MY_DEFAULT_SHARED_PREFERENCES</string>
+    <string name="schedule_folder_name_odd">Нечётная</string>
+    <string name="schedule_folder_name_even">Чётная</string>
+    <string name="schedule_parent_dir_name">Расписание</string>
+    <string name="menu_add_record">Добавить занятие</string>
+    <string name="user_bad_time_values">Время конца должно быть больше времени начала</string>
+    <string name="user_cancel_adding">Отмена добавления занятия</string>
+    <string name="popup_add_new_record">Добавить запись</string>
+    <string name="popup_remove_record">Удалить запись</string>
+    <string name="add_rec_record_no">Номер записи</string>
+    <string name="add_rec_begin_time">Время начала</string>
+    <string name="add_rec_end_time">Время конца</string>
+    <string name="add_rec_subject_name">Название предмета</string>
+    <string name="add_rec_teacher_first_name">Имя преподавателя</string>
+    <string name="add_rec_teacher_last_name">Фамилия преподавателя</string>
+    <string name="add_rec_teacher_middle_name">Отчество преподавателя</string>
+    <string name="add_rec_hint_subject_name">введите название предмета</string>
+    <string name="add_rec_teacher_fn_hint">введите имя преподавателя</string>
+    <string name="add_rec_hint_record_no">введите номер записи</string>
+    <string name="add_rec_hint_teacher_fn">введите имя преподавателя</string>
+    <string name="add_rec_hint_teacher_ln">введите фамилию преподавателя</string>
+    <string name="add_rec_hint_teacher_mn">введите отчество преподавателя</string>
+    <string name="add_rec_hint_lesson_type">лек, прак, лаб </string>
+    <string name="add_rec_hint_room_no">номер аудитории</string>
+    <string name="add_rec_add_button_text">Добавить</string>
+
+    <string name="list_field_text_position">1.</string>
+    <string name="list_field_record_time">8:30-9:50</string>
+    <string name="list_item_hint_subject_name">математика</string>
+    <string name="list_item_teacher_name">Иванов Иван Иванович</string>
+    <string name="list_item_lesson_type">Лек</string>
+    <string name="list_item_rooms_desc">Г-309</string>
+
+    <string name="add_rec_cancel_button_text">Отмена</string>
+
+</resources>

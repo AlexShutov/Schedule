@@ -20,7 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class TestActivity extends Activity 
+public class MainScreenActivity extends Activity
  implements ScheduleDayFragment.OnItemClickListener,
  			OEWeekSaverBase.OnCompletionCallback, 
  			ScheduleEditRecordFragment.OnEditResult

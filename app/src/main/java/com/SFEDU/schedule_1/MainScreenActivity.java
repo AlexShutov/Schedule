@@ -5,6 +5,8 @@ import java.util.Calendar;
 import com.SFEDU.schedule_1.Schedule.ScheduleRecord;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -201,6 +204,8 @@ public class MainScreenActivity extends Activity
 		// this screen handles touches
 		day.SetOnItemClickListener(this);
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		// show this fragment when user navigates back
+		//ft.addToBackStack("show_day_schedule");
 		ft.replace(R.id.mainFragment, day);
 		ft.commit();	
 	}
@@ -209,10 +214,12 @@ public class MainScreenActivity extends Activity
 	 * displays new add record fragment
 	 */
 	private void addNewRecord() {
+
 		ScheduleEditRecordFragment addFragment = new ScheduleEditRecordFragment();
 		// set this activity as a button touch callback
 		addFragment.SetButtonsTouchHandler(this);
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.addToBackStack("add_new_record");
 		ft.replace(R.id.mainFragment, addFragment);
 		ft.commit();
 	}
@@ -304,6 +311,14 @@ public class MainScreenActivity extends Activity
 	 * and display it
 	 */
 	private void OnOddEvenWeekChecked(boolean isOdd) {
+
+		// do nothing, if checkbox status is checked during adding a new record
+		Fragment f = getFragmentManager().findFragmentById(R.id.mainFragment);
+		if (f instanceof ScheduleEditRecordFragment) {
+			return;
+		}
+
+
 		//Toast.makeText(getApplicationContext(), "Is odd?: " + isOdd, Toast.LENGTH_SHORT).show();
 		updateCurrentDayReference();
 		showDayWeek(mCurrentDay);
@@ -313,12 +328,18 @@ public class MainScreenActivity extends Activity
 	 * different day of week is selected
 	 */
 	private void OnWeekDayChecked(int dayIndex, String dayName) {
+
+		// do nothing, if current day is changed during adding a new record
+		Fragment f = getFragmentManager().findFragmentById(R.id.mainFragment);
+		if (f instanceof ScheduleEditRecordFragment) {
+			return;
+		}
 		//String msg = "Weekday selected: " + Schedule4Week.GetDayNamesList().get(dayIndex);
 		//Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 		updateCurrentDayReference();
 		showDayWeek(mCurrentDay);
 	}
-	
+
 	
 	
 	private Schedule mCurrentDay;

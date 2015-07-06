@@ -311,16 +311,13 @@ public class MainScreenActivity extends Activity
 	 * and display it
 	 */
 	private void OnOddEvenWeekChecked(boolean isOdd) {
-
+		updateCurrentDayReference();
 		// do nothing, if checkbox status is checked during adding a new record
 		Fragment f = getFragmentManager().findFragmentById(R.id.mainFragment);
 		if (f instanceof ScheduleEditRecordFragment) {
 			return;
 		}
 
-
-		//Toast.makeText(getApplicationContext(), "Is odd?: " + isOdd, Toast.LENGTH_SHORT).show();
-		updateCurrentDayReference();
 		showDayWeek(mCurrentDay);
 	}
 	
@@ -329,11 +326,11 @@ public class MainScreenActivity extends Activity
 	 * is changed during adding a new record
 	 */
 	private void OnWeekDayChecked(int dayIndex, String dayName) {
+		updateCurrentDayReference();
 		Fragment f = getFragmentManager().findFragmentById(R.id.mainFragment);
 		if (f instanceof ScheduleEditRecordFragment) {
 			return;
 		}
-		updateCurrentDayReference();
 		showDayWeek(mCurrentDay);
 	}
 

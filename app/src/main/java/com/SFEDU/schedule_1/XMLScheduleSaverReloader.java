@@ -215,8 +215,7 @@ public class XMLScheduleSaverReloader
 						}
 					} 
 					else
-						if (field.getNodeName().equals(ScheduleRecord.ms_EndTime)) 
-						{
+						if (field.getNodeName().equals(ScheduleRecord.ms_EndTime)) {
 							try {
 								String[] sT = fieldValue.split(":");
 								Integer t = Integer.valueOf(sT[0]); // часы
@@ -230,32 +229,26 @@ public class XMLScheduleSaverReloader
 							}
 					} 
 					else
-					if (field.getNodeName().equals(ScheduleRecord.ms_SubjectName)) 
-					{
+					if (field.getNodeName().equals(ScheduleRecord.ms_SubjectName)) {
 						rb.SetSubjectName(fieldValue);
 					}
 					else
-					if (field.getNodeName().equals(ScheduleRecord.ms_TeacherFirstName)) 
-					{ 
+					if (field.getNodeName().equals(ScheduleRecord.ms_TeacherFirstName)) {
 						rb.SetTeacherFirstName(fieldValue);
 					} 
 					else
-					if (field.getNodeName().equals(ScheduleRecord.ms_TeacherMiddleName)) 
-					{
+					if (field.getNodeName().equals(ScheduleRecord.ms_TeacherMiddleName)) {
 						rb.SetTeacherMiddleName(fieldValue);
 					}
-					if (field.getNodeName().equals(ScheduleRecord.ms_TeacherLastName)) 
-					{
+					if (field.getNodeName().equals(ScheduleRecord.ms_TeacherLastName)) {
 						rb.SetTeacherLastName(fieldValue);
 					} 
 					else
-					if (field.getNodeName().equals(ScheduleRecord.ms_LessonType)) 
-					{
+					if (field.getNodeName().equals(ScheduleRecord.ms_LessonType)) {
 						rb.SetLessonType(fieldValue);
 					}
 					else 
-					if (field.getNodeName().equals(ScheduleRecord.ms_RoomDescription)) 
-					{
+					if (field.getNodeName().equals(ScheduleRecord.ms_RoomDescription)) {
 						rb.SetRoomDescription(fieldValue);
 					}
 				}
@@ -467,7 +460,7 @@ public class XMLScheduleSaverReloader
 			 * add whitespace support
 			 */
 			m_t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "3");
-			
+
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 			error_encountered = true;

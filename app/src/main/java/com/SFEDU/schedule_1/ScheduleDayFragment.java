@@ -13,10 +13,15 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+/**
+ * Shows list of records for a particular day of week
+ */
 public class ScheduleDayFragment extends ListFragment {
 	public static final String TAG = "DAY_FRAGMENT";
-	
-	//touch callback
+
+	/**
+	 * touch callback
+	 */
 	interface OnItemClickListener {
 		public void OnClick(int recordPosition, ScheduleDayFragment sender);
 	}
@@ -61,10 +66,14 @@ public class ScheduleDayFragment extends ListFragment {
 	public void SetOnItemClickListener(OnItemClickListener listener) {
 		mClickListener = listener;
 	}
-	
-	// used for item removal
+
+	/**
+	 * used for item removal
+	 */
 	private ScheduleDayFragment.OnItemClickListener mClickListener;
-	// schedule to show
+	/**
+	 *  schedule to show
+	 */
 	private Schedule mDaySchedule;
 	private ScheduleAdapter mAdapter;
 	

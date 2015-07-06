@@ -12,7 +12,10 @@ import android.R.integer;
 public class Schedule 
 {
 	
-	//содержит текстовые описания- ключи ячейки и значения
+
+	/**
+	 * contains text fields, describing one schedule record
+	 */
 	public static class ScheduleRecord 
 	{
 		
@@ -21,23 +24,31 @@ public class Schedule
 			m_BeginTime = new Date(0, 0, 0, 0, 0);
 			m_EndTime = new Date(0, 0, 0, 0, 0);
 		}
-		
-		// номер записи (урока)
+
+		/**
+		 * record No (lesson No)
+		 */
 		public static final String ms_RecordPosition = "RECORD_POSITION";		
 		protected int m_RecordPosition;
 		
-		// время начала и конца
+		/**
+		 * begin and end time
+		 */
 		public static final String ms_BeginTime = "RECORD_LESSON_BEGIN_TIME";
 		protected Date m_BeginTime;
 		
 		public static final String ms_EndTime = "RECORD_LESSON_END_TIME";
 		protected Date m_EndTime;
-		
-		// имя предмета
+
+		/**
+		 * lesson name
+		 */
 		public static final String ms_SubjectName = "RECORD_SUBJECT_NAME";
 		protected String m_SubjectName;
-		
-		//ФИО преподавателя
+
+		/**
+		 * teacher initials
+		 */
 		public static final String ms_TeacherFirstName = "RECORD_TEACHER_FIRST_NAME";
 		protected String m_TeacherFirstName;
 		
@@ -46,17 +57,20 @@ public class Schedule
 		
 		public static final String ms_TeacherLastName = "RECORD_TEACHER_LAST_NAME";
 		protected String m_TeacherLastName;
-		
-		// тип урока (лек/сем)
+
+		/**
+		 * lesson type
+		 */
 		public static final String ms_LessonType = "RECORD_LESSON_TYPE";
 		protected String m_LessonType;
-		
-		// описание комнаты (не инт)
+
+		/**
+		 * room description
+		 */
 		public static final String ms_RoomDescription = "RECORD_ROOM_DESCRIPTION";
 		protected String m_RoomDescription;
 		
-		
-		// аксесоры
+
 		public int GetRecordPosition() { return m_RecordPosition; }
 		public Date GetBeginTime() { return m_BeginTime; }
 		public Date GetEndTime() { return m_EndTime; }
@@ -106,8 +120,9 @@ public class Schedule
 		}
 
 
-
-		// строитель для создания новой строчки расписания
+		/**
+		 * Builder for a new schedule record (row)
+		 */
 		public static class ScheduleRecordBuilder
 		{
 			private ScheduleRecord m_Record2Build;

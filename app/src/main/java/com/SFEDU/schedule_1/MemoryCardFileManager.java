@@ -111,7 +111,6 @@ public class MemoryCardFileManager {
 				targetFile.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
-				
 			}
 		}
 	}

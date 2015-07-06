@@ -13,7 +13,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 
-// адаптер списка
+/**
+ * Adapter for list row
+ */
 public class ScheduleAdapter extends BaseAdapter 
 {
 	private LayoutInflater m_Inflater;
@@ -40,15 +42,18 @@ public class ScheduleAdapter extends BaseAdapter
 		return 0;
 	}
 
+	/**
+	 * It reuses references kept in tag for smooth scrolling,
+	 * retrives record by given number and fills all fields
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		//чтобы список прокручивался плавно, повторно используются
-		// ссылки на его виджеты
 		RecordViewHolder holder = null;
-		
-		if (convertView == null) 
-		{ 
-			
+
+		/**
+		 * if that row in list has to be filled for the first time
+		 */
+		if (convertView == null) {
 			convertView = m_Inflater.inflate(R.layout.schedule_record_list_item , null);
 			holder = new  RecordViewHolder();
 			holder.recordPosition = (TextView) convertView.findViewById(R.id.recordPosition);
@@ -65,7 +70,9 @@ public class ScheduleAdapter extends BaseAdapter
 		}
 		ScheduleRecord sr = m_Items.get(position);
 		holder.recordPosition.setText(String.valueOf(sr.GetRecordPosition()));
-		// время
+		/**
+		 * time
+		 */
 		StringBuilder sb = new StringBuilder();
 		sb.append(sr.GetBeginHour());
 		sb.append(":");
@@ -75,9 +82,13 @@ public class ScheduleAdapter extends BaseAdapter
 		sb.append(":");
 		sb.append(sr.GetEndMinutes());
 		holder.lessonTime.setText(sb.toString());
-		// название предмета
+		/**
+		 * subject name
+		 */
 		holder.subjectName.setText(sr.GetSubjectName());
-		// имя преподавателья
+		/**
+		 * teacher name
+		 */
 		sb = new StringBuilder();
 		sb.append(sr.GetTeacherFirstName());
 		sb.append(" ");
@@ -85,15 +96,15 @@ public class ScheduleAdapter extends BaseAdapter
 		sb.append(" ");
 		sb.append(sr.GetTeacherLastName());
 		holder.teacherName.setText(sb.toString());
-		// лек/прак и номер комнаты
+		/**
+		 * lesson type and room no
+		 */
 		holder.lessonType.setText(sr.GetLessonType());
 		holder.roomDesc.setText(sr.GetRoomDescription());
-			
 		return convertView;
 	}
 	
-	static class RecordViewHolder
-	{
+	static class RecordViewHolder {
 		TextView recordPosition;
 		TextView lessonTime;
 		TextView subjectName;

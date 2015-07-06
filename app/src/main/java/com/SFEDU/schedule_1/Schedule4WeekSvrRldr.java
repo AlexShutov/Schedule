@@ -1,14 +1,8 @@
 package com.SFEDU.schedule_1;
 
 import java.io.File;
-import java.io.FilePermission;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.SFEDU.schedule_1.Schedule.ScheduleRecord.ScheduleRecordBuilder;
-
-import android.R.layout;
 import android.os.Environment;
 
 public class Schedule4WeekSvrRldr 
@@ -43,7 +37,7 @@ public class Schedule4WeekSvrRldr
 		
 		// должна быть доступна запись на диск
 		MemoryCardFileManager memCardMgr = new MemoryCardFileManager();
-		if (!memCardMgr.IsExternalAvailible() && !memCardMgr.IsExternalWriteable()) {
+		if ( !MemoryCardFileManager.isExternalWriteable()) {
 			throw new IllegalStateException("File storage isn't ready");
 		}		
 		// если путь к директории не был установлен, то записываем в корень
@@ -82,7 +76,7 @@ public class Schedule4WeekSvrRldr
 			}
 			String p = dir.getPath() +"/" + dayName + ".xml";
 			// не хорошо, но для более "тонкой настройки"- не в корень, как думал
-			m_schSaverReloader.GetFileMgr().SetFileName(p, false);
+			m_schSaverReloader.GetFileMgr().setFileName(p, false);
 			m_schSaverReloader.SaveSchedule(s);
 		}
 	}
@@ -94,9 +88,9 @@ public class Schedule4WeekSvrRldr
 	{
 		Schedule4Week result = new Schedule4Week();
 		
-		// должна быть доступна запись на диск
+
 		MemoryCardFileManager memCardMgr = new MemoryCardFileManager();
-		if (!memCardMgr.IsExternalAvailible())
+		if (!MemoryCardFileManager.isExternalReadable())
 		{
 			throw new IllegalStateException("File storage isn't ready");
 		}
@@ -121,7 +115,7 @@ public class Schedule4WeekSvrRldr
 				if (Schedule4Week.GetDayNamesList().contains(dayName)) 
 				{
 					String fileName = d.getPath();
-					m_schSaverReloader.GetFileMgr().SetFileName(fileName, false);
+					m_schSaverReloader.GetFileMgr().setFileName(fileName, false);
 					try {
 						Schedule s = m_schSaverReloader.ReloadSchedule();
 						result.PutDaySchedule(dayName, s);

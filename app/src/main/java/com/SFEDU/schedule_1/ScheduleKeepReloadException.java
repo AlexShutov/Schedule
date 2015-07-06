@@ -2,8 +2,10 @@ package com.SFEDU.schedule_1;
 
 import android.R.integer;
 
-// описывает ошибки сохранения записи
 
+/**
+ * Exception for saving/reloading errors
+ */
 public class ScheduleKeepReloadException extends Exception {
 
 	

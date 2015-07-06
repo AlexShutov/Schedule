@@ -1,16 +1,7 @@
 package com.SFEDU.schedule_1;
 
-import java.io.BufferedWriter;
-import java.io.Console;
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -24,43 +15,30 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import org.xml.sax.SAXException;
-
-import android.R.bool;
-import android.R.id;
-import android.R.integer;
-import android.R.layout;
-import android.content.Entity.NamedContentValues;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.text.StaticLayout;
-import android.util.Log;
 
 import com.SFEDU.schedule_1.Schedule.ScheduleRecord;
 import com.SFEDU.schedule_1.Schedule.ScheduleRecord.ScheduleRecordBuilder;
 
 public class XMLScheduleSaverReloader
-	implements IScheduleKeeperReloader
-{
-	
-	// Название корневого элемента
+	implements IScheduleKeeperReloader  {
+	/**
+	 * name of the root element
+	 */
 	private static final String TAG_SCHEDULE = "SCHEDULE";
 	private static final String TAG_SCHEDULE_RECORD = "RECORD";
 	
 	public class XMLRecordSaverReloader 
-		implements IScheduleRecordKeeperReloader
-	{	
-		// представляем строку расписания как текстовую строку
+		implements IScheduleRecordKeeperReloader  {
+		/**
+		 * Converts schedule record into String
+		 */
 		@Override
-		public void SaveRecord(ScheduleRecord r) throws ScheduleKeepReloadException
-		{
+		public void SaveRecord(ScheduleRecord r) throws ScheduleKeepReloadException {
 			if (r == null) {
 				return;
 			}
@@ -73,52 +51,54 @@ public class XMLScheduleSaverReloader
 		public ScheduleRecord ReloadRecord() throws ScheduleKeepReloadException {
 			return null;
 		}
-
 	}
-		
-	
 
-	
-	
-	
-
-	// строитель поддерева записи расписания
-	// сохраняет запись расписания, при использовании DOM- документ должен быть
-	// создан. Реализация в XMLScheduleSaverReloader позволяет сохранять единственную запись
-	// к существующему дереву, при этом удаляя и перезаписывая снова файл.
-	// данный строитель же просто создаём DOM- дерево
+	/**
+	 * The builder for the subtree of schedule record. Saves record. DOM document must be
+	 * created before using it. Implementation in XMLScheduleSaver Reloader allows to save a single
+	 * record in existing tree, removing and rewriting the file. This builder just creates DOM- tree.
+	 */
 	protected static class RecordDOMTreeBuilder
-		implements IScheduleRecordKeeperReloader
-	{
-		
-
+		implements IScheduleRecordKeeperReloader  {
 		@Override
-		public void SaveRecord(ScheduleRecord sr) throws ScheduleKeepReloadException 
-		{
-			// создаём узел записи расписания
+		public void SaveRecord(ScheduleRecord sr) throws ScheduleKeepReloadException  {
+			/**
+			 * Create a new node
+			 */
 			m_Record = m_DOMDoc.createElement(TAG_SCHEDULE_RECORD);
-			
-			// сохраняем запись
-			// номер записи, узел
+
+			/**
+			 * save record, record no, the node
+			 */
 			Element recordPosition = m_DOMDoc.createElement(ScheduleRecord.ms_RecordPosition);
 			m_Record.appendChild(recordPosition);
-			//значение
+			/**
+			 * value
+			 */
 			Text posNo = m_DOMDoc.createTextNode(String.valueOf(sr.GetRecordPosition()));
 			recordPosition.appendChild(posNo);
-			
-			// время начала
+
+			/**
+			 * begin time
+			 */
 			Element beginTime = m_DOMDoc.createElement(ScheduleRecord.ms_BeginTime);
-			// время в формате 8:30
+			/**
+			 * time in format 8:30
+			 */
 			StringBuilder sb = new StringBuilder();
 			sb.append(String.valueOf(sr.GetBeginHour()));
 			sb.append(':');
 			sb.append(String.valueOf(sr.GetBeginMinutes()));
-			// текстовое поле времени
+			/**
+			 * time text field
+			 */
 			Text begTimeText = m_DOMDoc.createTextNode(sb.toString());
 			beginTime.appendChild(begTimeText);
 			m_Record.appendChild(beginTime);
-			
-			// время конца
+
+			/**
+			 * end time
+			 */
 			Element endTime = m_DOMDoc.createElement(ScheduleRecord.ms_EndTime);
 			sb = new StringBuilder();
 			sb.append(String.valueOf(sr.GetEndHour()));
@@ -127,38 +107,50 @@ public class XMLScheduleSaverReloader
 			Text endTimeText = m_DOMDoc.createTextNode(sb.toString());
 			endTime.appendChild(endTimeText);
 			m_Record.appendChild(endTime);
-			
-			// название предмета
+
+			/**
+			 * subject name
+			 */
 			Element subjectName = m_DOMDoc.createElement(ScheduleRecord.ms_SubjectName);
 			Text sName = m_DOMDoc.createTextNode(sr.GetSubjectName());
 			subjectName.appendChild(sName);
 			m_Record.appendChild(subjectName);
-			
-			// имя преподавателя
+
+			/**
+			 * teacher first name
+			 */
 			Element teacherFN = m_DOMDoc.createElement(ScheduleRecord.ms_TeacherFirstName);
 			Text tfn = m_DOMDoc.createTextNode(sr.GetTeacherFirstName());
 			teacherFN.appendChild(tfn);
 			m_Record.appendChild(teacherFN);
-			
-			// отчество преподавателя
+
+			/**
+			 * teacher middle name
+			 */
 			Element teacherMiddleName = m_DOMDoc.createElement(ScheduleRecord.ms_TeacherMiddleName);
 			Text tmn = m_DOMDoc.createTextNode(sr.GetTeacherMiddleName());
 			teacherMiddleName.appendChild(tmn);
 			m_Record.appendChild(teacherMiddleName);
-						
-			// фамилия преподавателя
+
+			/**
+			 * teacher last name
+			 */
 			Element teacherLastName = m_DOMDoc.createElement(ScheduleRecord.ms_TeacherLastName);
 			Text tln = m_DOMDoc.createTextNode(sr.GetTeacherLastName());
 			teacherLastName.appendChild(tln);
 			m_Record.appendChild(teacherLastName);
-			
-			// описание предмета (лекция/практика)
+
+			/**
+			 * lesson description
+			 */
 			Element lessonType = m_DOMDoc.createElement(ScheduleRecord.ms_LessonType);
 			Text lt = m_DOMDoc.createTextNode(sr.GetLessonType());
 			lessonType.appendChild(lt);
 			m_Record.appendChild(lessonType);
-			
-			// номер кабиннета
+
+			/**
+			 * room No
+			 */
 			Element roomDesc = m_DOMDoc.createElement(ScheduleRecord.ms_RoomDescription);
 			Text rd = m_DOMDoc.createTextNode(sr.GetRoomDescription());
 			roomDesc.appendChild(rd);
@@ -166,33 +158,29 @@ public class XMLScheduleSaverReloader
 			
 		}
 		@Override
-		public ScheduleRecord ReloadRecord() throws ScheduleKeepReloadException 
-		{
-			
+		public ScheduleRecord ReloadRecord() throws ScheduleKeepReloadException {
 			ScheduleRecordBuilder rb = new ScheduleRecordBuilder();
 			rb.BuildNewRecord();
-			
-			// запись- элемент, значения параметров- текстовое поле
+			/**
+			 * the record is element, params values- text field
+			 */
 			int i = -1;
-
-			if (m_Node.getNodeType() == Node.ELEMENT_NODE) 
-			{
-				// у записи есть поля
+			if (m_Node.getNodeType() == Node.ELEMENT_NODE)  {
 				if (!m_Node.hasChildNodes()) {
 					throw new ScheduleKeepReloadException(i, "record structure is corrupt");
 				}
 		
 				NodeList fields = m_Node.getChildNodes();
-				Node field = null;	// поле в записи
+				Node field = null;
 				String fieldValue;
 				for (int j = 0; j < fields.getLength(); ++j)
 				{
 					field = fields.item(j);
-					// записи, элементы, их значния- их текстовые потомки
+					/**
+					 * records, elements, their values- text children
+					 */
 					if (field.getNodeType() != Node.ELEMENT_NODE)
-						continue;		
-					
-					// у поля только одно текстовое значение
+						continue;
 					try {
 						fieldValue = ((Text) field.getChildNodes().item(0)).getTextContent();
 			
@@ -202,19 +190,23 @@ public class XMLScheduleSaverReloader
 					}
 		
 		
-					if (field.getNodeName().equals(ScheduleRecord.ms_RecordPosition)) 
-					{
+					if (field.getNodeName().equals(ScheduleRecord.ms_RecordPosition)) {
 						Integer recPos = Integer.valueOf(fieldValue);
 						rb.SetRecordPosition(recPos);
 					} 
 					else
-					if (field.getNodeName().equals(ScheduleRecord.ms_BeginTime)) 
-					{
+					if (field.getNodeName().equals(ScheduleRecord.ms_BeginTime))  {
 						try {
 							String[] sT = fieldValue.split(":");
-							Integer t = Integer.valueOf(sT[0]); // часы
+							/**
+							 * hours
+							 */
+							Integer t = Integer.valueOf(sT[0]);
 							rb.SetBeginHour(t);
-							t = Integer.valueOf(sT[1]); // минуты
+							/**
+							 * minutes
+							 */
+							t = Integer.valueOf(sT[1]);
 							rb.SetBeginMinute(t);
 				
 						} catch (Exception e) {
@@ -268,28 +260,34 @@ public class XMLScheduleSaverReloader
 					}
 				}
 			}
-			
-						
 			return rb.GetBuiltRecord();
 		}
-		
-		//устанавливает документ XML
+
+		/**
+		 * sets XML document
+		 * @param doc
+		 */
 		public void SetScheduleDOMDoc(Document doc) {
 			m_DOMDoc = doc;
 		}
-		
-		// нужно для исключения
+
+		/**
+		 * used for exception handling
+		 * @param index
+		 */
 		public void SetRowIndex(int index) {
 			row_index = index;
 		}
-		
-		// при загрузке записи сначала устанавливаем элемент в дереве, указываюший на эту
-		// запись, а затем вызываем ReloadRecord(), чтобы получить запись
+
+		/**
+		 * During reloading first set element in the tree, pointing at this record and then
+		 * call ReloadRecord() to obtain record
+		 * @param elem
+		 */
 		public void SetCurrRecordTreeElement(Element elem) {
 			m_Record = elem;
 		}
-		
-		
+
 		public void SetCurrNode(Node n) {
 			m_Node = n;
 		}
@@ -298,144 +296,130 @@ public class XMLScheduleSaverReloader
 			return m_Record;
 		}
 		public boolean HasRecord() { return m_Record == null; } 
-		
-		
+
 		private int row_index = 0;
 		private Node m_Node;
 		private Element m_Record;
-		private Document m_DOMDoc;  
-		
-		
-
+		private Document m_DOMDoc;
 	}
-	
-	
-	
-	
+
 	@Override
-	public void SaveSchedule( Schedule s) 	throws ScheduleKeepReloadException 
-	{
+	public void SaveSchedule( Schedule s) 	throws ScheduleKeepReloadException  {
 		if (s == null || s.GetRecordsList().isEmpty()) {
-			return;	// нечего сохранять
+			return;
 		}
-		
 		if (m_createDocument) {	
 			m_doc = m_db.newDocument();
 		}
-		
 		m_root = m_doc.createElement(TAG_SCHEDULE);
 		
 		if (m_createDocument)
 			m_doc.appendChild(m_root);
-		
-		
-		// создаём строитель поддерева, представляющего запись в расписании
+
+		/**
+		 * create subtree biolder
+		 */
 		RecordDOMTreeBuilder treeBuilder = new RecordDOMTreeBuilder();
-		// сообщаем строителю о документе
 		treeBuilder.SetScheduleDOMDoc(m_doc);
-		// обходим все записи, 
-		for (ScheduleRecord sr : s.GetRecordsList()) 
-		{
-			try 
-			{
-				//сохраняем запись
+		/**
+		 * iterate over all records
+		 */
+		for (ScheduleRecord sr : s.GetRecordsList()) {
+			try {
+				/**
+				 * try to save record
+				 */
 				treeBuilder.SaveRecord(sr);
-				// добавляем сохранённую запись в дерево расписания
+				/**
+				 * add saved record to schedule tree
+				 */
 				m_root.appendChild(treeBuilder.GetBuiltRecord());
 			} 
 			catch (Exception e) 
 			{
 				e.printStackTrace();
-				// получаем номер испорченной записи
+				/**
+				 * obtain number of currupt record
+				 */
 				int pos = sr.GetRecordPosition();
-				// сообщаем об исключении
 				throw new ScheduleKeepReloadException(pos, e.getMessage());
 			}		 
 		}
-		
 		if (m_createDocument) {
-			// записываем новый файл
-			m_fileMgr.EraseFile();
-			// для расписания на неделю не надо вызывать
+			/**
+			 * create a new file
+			 */
+			m_fileMgr.eraseFile();
 			FlushTreeOnDisc();
 		}
 	}
 
 	@Override
-	public Schedule ReloadSchedule() throws ScheduleKeepReloadException 
-	{		
-		m_fileMgr.CloseFileSession();
-		
+	public Schedule ReloadSchedule() throws ScheduleKeepReloadException {
+		m_fileMgr.closeFileSession();
 		Schedule schedule = new Schedule();	
 		try {
 			
 			if (m_createDocument) {			
 				m_doc = m_db.newDocument();
-				Source source = new StreamSource(m_fileMgr.OpenReadSession());
+				Source source = new StreamSource(m_fileMgr.openReadSession());
 				Result result = new DOMResult(m_doc);
 				m_t.transform(source, result);
-				// получаем корневой элемент загруженного дерева (он всего один)
+				/**
+				 * get tree root
+				 */
 				m_root = (Element) m_doc.getChildNodes().item(0);
 			}
-
 			if (!m_root.getNodeName().equals(TAG_SCHEDULE)) {
 				throw new ScheduleKeepReloadException(-1, "root node is corrupt ");
-			} 
-			
+			}
 			if (m_root.hasChildNodes())
 			{
 				RecordDOMTreeBuilder rb = new RecordDOMTreeBuilder();
-				
-				// получаем узлы дерева, соответствующие записям
+				/**
+				 * get tree nodes, corresponding to records
+				 */
 				NodeList records = m_root.getChildNodes();
 				for (int i = 0; i < records.getLength(); ++i) {
-					
 					Node record = records.item(i);
 					if (record.getNodeType() == Node.ELEMENT_NODE)
 					{
 						rb.SetCurrNode(record);
 						rb.SetRowIndex(i);
-						schedule.AddRecord(rb.ReloadRecord());	
-							
+						schedule.AddRecord(rb.ReloadRecord());
 					}
 				}
 			}
-			
 		}
 		catch (TransformerException te) {
 			te.printStackTrace();
-			throw new ScheduleKeepReloadException(-1, "iosjfojsoef");
+			throw new ScheduleKeepReloadException(-1, "Can't save of reload");
 		}
-		catch (IllegalAccessException e) { // нет доступа к файлу
+		/**
+		 * no file access
+		 */
+		catch (IllegalAccessException e) {
 			e.printStackTrace();
-			//
 		}
 		finally {
-			m_fileMgr.CloseFileSession();
+			m_fileMgr.closeFileSession();
 		}
-		
 		m_doc = null;
 		m_root = null;
-		
 		return schedule;	
 	}
-	
-	
-	
-	
 
+	/**
+	 * clears memory references and erases file
+	 * @throws ScheduleKeepReloadException
+	 */
 	@Override
 	public void DropSavedSchedule() throws ScheduleKeepReloadException {
-		// удаляем из памяти
 		m_root = null;
 		m_doc = null;
-		// удаляем файл
-		m_fileMgr.EraseFile();		
+		m_fileMgr.eraseFile();
 	}
-		
-	
-	////////////////////////////////////////////////////////////////////
-	
+
 	public XMLScheduleSaverReloader() {
 		Init();
 	}
@@ -443,34 +427,47 @@ public class XMLScheduleSaverReloader
 		Init();
 		SetFileName(fileName);
 	}
-	
-	// начальная настройка
-	protected boolean Init()
-	{
-		// полагаем, что сохраняется расписание не на неделю
+
+	/**
+	 * Initial setup
+	 * @return boolean is everything ok
+	 */
+	protected boolean Init() {
+		/**
+		 * suppose, schedule isn't for a week
+		 */
 		m_createDocument = true;
 		boolean error_encountered = false;
-					
-		// нужно установить имя файла
+		/**
+		 * need to set filename
+		 */
 		m_fileMgr = new MemoryCardFileManager();
 		
 		try 
 		{
 			m_dbf = DocumentBuilderFactory.newInstance();
 			m_db = m_dbf.newDocumentBuilder();
-			
-			// создадим во время работы
+
+			/**
+			 * will be set during transform
+			 */
 			m_doc = null;
 			
 			m_tf = TransformerFactory.newInstance();
-			// источник и приёмник зададим во время преобразования
+			/**
+			 * source and receiver will be set during transform
+			 */
 			m_t = m_tf.newTransformer();
-			// настраиваем преобразователь xml- дерева
+			/**
+			 * customize xml- tree transformer
+			 */
 			m_t.setOutputProperty(OutputKeys.METHOD, "xml");
 			m_t.setOutputProperty(OutputKeys.INDENT, "yes");
-			// чтобы можно было сохранять пробелы
+			/**
+			 * add whitespace support
+			 */
 			m_t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "3");
-				
+			
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 			error_encountered = true;
@@ -478,71 +475,79 @@ public class XMLScheduleSaverReloader
 			e.printStackTrace();
 			error_encountered = true;
 		}
-						
 		return error_encountered;
 	}
-	
-	// сохраняет расписание, представленное m_doc на диск
-	// в заданный файл
+
+	/**
+	 * Saves a schedule referenced by m_doc on disc in a given file
+	 */
 	protected void FlushTreeOnDisc()
 	{
 		if (m_doc == null) {
 			return;
 		}
-		// удаляем файл и создаём новый
-		m_fileMgr.EraseFile();
+		/**
+		 * erase old file
+		 */
+		m_fileMgr.eraseFile();
 		try {
-			// источник- данные в памяти, приёмник- файл
+			/**
+			 * source is in a memory, receiver- the file
+			 */
 			Source source = new DOMSource(m_doc);
-			Result result = new StreamResult(m_fileMgr.OpenWriteSession());
-			//записываем дерево в файл с помощью заранее настроенного 
-			// преобразователя
+			Result result = new StreamResult(m_fileMgr.openWriteSession());
+			/**
+			 * write tree by customized transformer
+			 */
 			m_t.transform(source, result);
 						
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		finally {
-			m_fileMgr.CloseFileSession(); // закрываем файл
+			m_fileMgr.closeFileSession(); // закрываем файл
 		}
 	}
 		
 	public Document GetDoc() { return m_doc; }
 	public MemoryCardFileManager GetFileMgr() { return m_fileMgr; }
-	
-	// сначала нужно установить имя файла, а затем сохранять/загружать
+
+	/**
+	 * you need to set filename first, and then save(reload)
+	 * @param fileName
+	 */
 	public void SetFileName(String fileName) {
-		m_fileMgr.SetFileName(fileName, true);
+		m_fileMgr.setFileName(fileName, true);
 	}
 	public void EraseFile() {
-		m_fileMgr.EraseFile();
+		m_fileMgr.eraseFile();
 	}
 
-	
-	
-	// управляет файлом сохранения
+
+	/**
+	 * checks memcard availiability and opens streams
+	 */
 	private MemoryCardFileManager m_fileMgr;
-	
-	// когда нужно сохранить расписание на один день в файл, то 
-	// нужно создать новый документ, если же надо сохранить расписание на неделю, \
-	// то документ создаётся один раз
+
+	/**
+	 * for saving single day new document needs to be created, for saving the week
+	 * document are created just once for all days
+	 */
 	private boolean m_createDocument;
-	
-	// что нужно для DOM- xml парсера и XSLT API
+
+	/**
+	 * used by DOM- perser and  XSLT API
+	 */
 	private DocumentBuilderFactory m_dbf;
 	private DocumentBuilder m_db;
 	private TransformerFactory m_tf;
 	private Transformer m_t;
-	
-	
-	//представляет загруженное DOM-дерево расписания
+
+	/**
+	 * loaded tree and root element
+	 */
 	private Document m_doc;
-	// корневой элемент xml- файла
 	private Element m_root;
-	
-	// при сохранении/загрузке интерфейс предполагает работу с единичными\
-	// записями. Позволяет  связывать записи с корневым узлом дерева
-	private Element m_tempRecordElement;
-	
+
 	
 }

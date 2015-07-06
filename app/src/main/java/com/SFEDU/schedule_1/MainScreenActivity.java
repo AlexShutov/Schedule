@@ -325,17 +325,14 @@ public class MainScreenActivity extends Activity
 	}
 	
 	/**
-	 * different day of week is selected
+	 * different day of week is selected, it does nothing, if current day
+	 * is changed during adding a new record
 	 */
 	private void OnWeekDayChecked(int dayIndex, String dayName) {
-
-		// do nothing, if current day is changed during adding a new record
 		Fragment f = getFragmentManager().findFragmentById(R.id.mainFragment);
 		if (f instanceof ScheduleEditRecordFragment) {
 			return;
 		}
-		//String msg = "Weekday selected: " + Schedule4Week.GetDayNamesList().get(dayIndex);
-		//Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 		updateCurrentDayReference();
 		showDayWeek(mCurrentDay);
 	}

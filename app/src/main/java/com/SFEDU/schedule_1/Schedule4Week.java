@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Contains list of records for each weekday
+ */
 public  class Schedule4Week {
 
 	public static final String TAG_WEEK_SCHEDULE = "WEEK_SCHEDULE";
@@ -17,8 +20,10 @@ public  class Schedule4Week {
 	public static final String ms_Fri = "DAY_5";
 	public static final String ms_Sat = "Day_6";
 	public static final String ms_Sun = "Day_7";
-	
-	// для удобства
+
+	/**
+	 * keep names in the list for convenience
+	 */
 	private static List<String> ms_DayNames;
 	static {
 		ms_DayNames = new ArrayList<String>();
@@ -39,15 +44,18 @@ public  class Schedule4Week {
 			m_emptySchedule = new Schedule4Week();
 		return m_emptySchedule;
 	}
-	
-	// чтобы каждый раз не создавать
+
+	/**
+	 * empty schedule, which might be referenced for convenience
+	 */
 	private static Schedule4Week m_emptySchedule = null;
-	
-	
-	// расписание на неделю  заполнено пустыми расписаниями
-	// для каждого дня
+
+
+	/**
+	 * empty schedule with non-empty references by default
+	 */
 	public Schedule4Week() {
-		// вдруг появятся другие дни
+
 		m_WeekSchedule = new HashMap<String, Schedule>();
 			
 		m_WeekSchedule.put(ms_Mon, new Schedule());
@@ -60,7 +68,7 @@ public  class Schedule4Week {
 		
 	}
 		
-	// аксессоры
+
 	public void PutDaySchedule(String dayName, Schedule schedule) throws IllegalArgumentException 
 	{
 		if (schedule == null || !ms_DayNames.contains(dayName) ) {
@@ -86,8 +94,10 @@ public  class Schedule4Week {
 	
 	public void SetTag(String tag ) { m_Tag = tag; }
 	public String GetTag() { return m_Tag; }
-	
-	// название расписания (имя папки сохранения)
+
+	/**
+	 * name of the schedule, or folder to save in
+	 */
 	private String m_Tag;
 	
 	private Map<String, Schedule> m_WeekSchedule;

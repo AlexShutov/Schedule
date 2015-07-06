@@ -7,6 +7,9 @@ import android.content.res.Resources;
 import android.os.Environment;
 import android.widget.Toast;
 
+/**
+ * Saves schedule to file on memory card
+ */
 public class OEWeekFileSaver extends OEWeekSaverBase {
 	
 	Context mContext;
@@ -14,7 +17,10 @@ public class OEWeekFileSaver extends OEWeekSaverBase {
 	String mParentDirName = "";
 	String mOddFolderName = "";
 	String mEvenFolderName = "";
-	
+
+	/**
+	 * folder names for odd and even weeks are in string resource file
+	 */
 	public OEWeekFileSaver(Context c) {
 		super();
 		mContext = c;
@@ -49,7 +55,7 @@ public class OEWeekFileSaver extends OEWeekSaverBase {
 			}
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
-			e.printStackTrace(); // just exit, can't retry
+			e.printStackTrace();
 			return;
 		} catch (ScheduleKeepReloadException e) {
 			e.printStackTrace();
